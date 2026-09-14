@@ -1,0 +1,1 @@
+DELETE FROM public.agendamentos a USING public.agendamentos b WHERE a.ctid > b.ctid AND a.user_id = b.user_id AND a.residente_id = b.residente_id AND a.descricao = b.descricao AND a.data = b.data AND coalesce(a.hora,'') = coalesce(b.hora,'') AND a.tipo = b.tipo;

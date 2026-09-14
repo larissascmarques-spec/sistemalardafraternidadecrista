@@ -1,0 +1,2 @@
+UPDATE public.estoque SET user_id = '255d05d4-83b9-4042-8355-2d66dfbe09f5' WHERE user_id = '68602d00-d468-4032-b588-5d697f05b465';
+UPDATE public.agendamentos SET user_id = '255d05d4-83b9-4042-8355-2d66dfbe09f5' WHERE user_id = '68602d00-d468-4032-b588-5d697f05b465';

@@ -1,0 +1,1 @@
+ALTER TABLE public.estoque ADD COLUMN IF NOT EXISTS ultima_retirada date; ALTER TABLE public.estoque ADD COLUMN IF NOT EXISTS proxima_retirada date;

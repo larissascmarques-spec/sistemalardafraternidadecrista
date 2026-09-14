@@ -1,0 +1,442 @@
+{
+  "jaqueline-karina-coelho": {
+    "nome": "Jaqueline Karina Coelho",
+    "itens": [
+      {
+        "horario": "06:00",
+        "medicacao": "Acido Valproico 250mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "14:00",
+        "medicacao": "Acido Valproico 250mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "21:00",
+        "medicacao": "Acido Valproico 250mg",
+        "dose": "4 comprimidos"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Carbamazepina 200mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "14:00",
+        "medicacao": "Carbamazepina 200mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "21:00",
+        "medicacao": "Carbamazepina 200mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Clorpromazina 100mg",
+        "dose": "meio comp"
+      },
+      {
+        "horario": "14:00",
+        "medicacao": "Clorpromazina 100mg",
+        "dose": "meio comp"
+      },
+      {
+        "horario": "21:00",
+        "medicacao": "Clorpromazina 100mg",
+        "dose": "meio comp"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Levotiroxina 50mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Norestin 0,35",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "08:00",
+        "medicacao": "Risperidona 3mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Risperidona 3mg",
+        "dose": "2 comprimidos"
+      }
+    ]
+  },
+  "katia-cirlene-costa-neves": {
+    "nome": "Katia Cirlene Costa Neves",
+    "itens": [
+      {
+        "horario": "08:00",
+        "medicacao": "Acido Valproico 250mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Acido Valproico 250mg",
+        "dose": "4 comprimidos"
+      },
+      {
+        "horario": "08:00",
+        "medicacao": "Dapagliflozina 10mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "08:00",
+        "medicacao": "Glicazida 30mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Glicazida 30mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "A cada 30 dias",
+        "medicacao": "Haloperidol 50mg Injetável",
+        "dose": "3 ampolas"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Levotiroxina 50mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "12:00",
+        "medicacao": "Metformina 500mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "08:00",
+        "medicacao": "Quetiapina 100mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "08:00",
+        "medicacao": "Quetiapina 200mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Quetiapina 200mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Rosuvastatina 20mg",
+        "dose": "1 comprimido"
+      }
+    ]
+  },
+  "vitoria-caroline-oliveira-silva": {
+    "nome": "Vitória Caroline Oliveira Silva",
+    "itens": [
+      {
+        "horario": "06:00",
+        "medicacao": "Acido Valproico 250mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "14:00",
+        "medicacao": "Acido Valproico 250mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "21:00",
+        "medicacao": "Acido Valproico 250mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Anticoncepcional",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "21:00",
+        "medicacao": "Clonazepam 2mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Fluoxetina 20mg",
+        "dose": "3 comprimidos"
+      },
+      {
+        "horario": "A cada 21 dias",
+        "medicacao": "Haloperidol 50mg Injetável",
+        "dose": "02 ampolas"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Periciazina 4%",
+        "dose": "10 gotas"
+      },
+      {
+        "horario": "18:00",
+        "medicacao": "Periciazina 4%",
+        "dose": "10 gotas"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Risperidona 3mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "18:00",
+        "medicacao": "Risperidona 3mg",
+        "dose": "1 comprimido"
+      }
+    ]
+  },
+  "marcelia-vogacia-ferreira": {
+    "nome": "Marcelia Vogacia Ferreira",
+    "itens": [
+      {
+        "horario": "08:00",
+        "medicacao": "Acido Valproico 250mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Acido Valproico 250mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "08:00",
+        "medicacao": "Atorvastatina 40mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "08:00",
+        "medicacao": "Diosmina 450mg + hesperidina 50mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "08:00",
+        "medicacao": "Escitalopram 10mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Levotiroxina 25mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Levotiroxina 50mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "12:00",
+        "medicacao": "Metformina 500mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Pregabalina 150mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Risperidona 2mg",
+        "dose": "1 comprimido"
+      }
+    ]
+  },
+  "rosilda-maria-fernandes": {
+    "nome": "Rosilda Maria Fernandes",
+    "itens": [
+      {
+        "horario": "08:00",
+        "medicacao": "Atorvastatina 40mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Carbamazepina 200mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "14:00",
+        "medicacao": "Carbamazepina 200mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "21:00",
+        "medicacao": "Carbamazepina 200mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "08:00",
+        "medicacao": "Diazepam 10mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Diazepam 10mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "08:00",
+        "medicacao": "Furosemida 40mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "12:00",
+        "medicacao": "Glicazida 30mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Quetiapina 50mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "08:00",
+        "medicacao": "Risperidona 1mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Risperidona 1mg",
+        "dose": "2 comprimidos"
+      }
+    ]
+  },
+  "miriam-izidorio-dos-santos": {
+    "nome": "Miriam Izidorio dos Santos",
+    "itens": [
+      {
+        "horario": "20:00",
+        "medicacao": "Clonazepam 2mg",
+        "dose": "1,5 comprimido"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Desogestrel",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "A cada 21 dias",
+        "medicacao": "Haloperidol 50mg Injetável",
+        "dose": "1 ampola"
+      },
+      {
+        "horario": "08:00",
+        "medicacao": "Levomepromazina 25mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Levomepromazina 25mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Oxibutinina 5mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "14:00",
+        "medicacao": "Oxibutinina 5mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "21:00",
+        "medicacao": "Oxibutinina 5mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Quetiapina 100mg",
+        "dose": "2 comprimidos"
+      }
+    ]
+  },
+  "patricia-kennedy-alves-bueno": {
+    "nome": "Patricia Kennedy Alves Bueno",
+    "itens": [
+      {
+        "horario": "20:00",
+        "medicacao": "Clonazepam 2mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "12:00",
+        "medicacao": "Fenofibrato 200mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Levetiracetam 250mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "12:00",
+        "medicacao": "Metformina 500mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Pregabalina 150mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Levodopa 200mg + benserazida 50mg (Prolopa)",
+        "dose": "meio comp"
+      },
+      {
+        "horario": "12:00",
+        "medicacao": "Levodopa 200mg + benserazida 50mg (Prolopa)",
+        "dose": "meio comp"
+      },
+      {
+        "horario": "14:00",
+        "medicacao": "Levodopa 200mg + benserazida 50mg (Prolopa)",
+        "dose": "meio comp"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Quetiapina 25mg",
+        "dose": "2 comprimidos"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Risperidona 3mg",
+        "dose": "1 comprimidos"
+      },
+      {
+        "horario": "06:00",
+        "medicacao": "Sertralina 50mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "Toda quinta-feira às 15                    (início dia 17/07/26) - Usar durante 10 semanas (até dia 17/09)",
+        "medicacao": "Vitamina D",
+        "dose": "1 comprimido"
+      }
+    ]
+  },
+  "silvania-aparecida-pereira-carvalho": {
+    "nome": "Silvania Aparecida Pereira Carvalho",
+    "itens": [
+      {
+        "horario": "08:00",
+        "medicacao": "Desvenlafaxina 50mg",
+        "dose": "1 comprimido"
+      },
+      {
+        "horario": "20:00",
+        "medicacao": "Losartana 50mg",
+        "dose": "1 comprimido"
+      }
+    ]
+  }
+}
