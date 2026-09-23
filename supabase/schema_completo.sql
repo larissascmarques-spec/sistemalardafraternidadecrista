@@ -154,6 +154,11 @@ CREATE POLICY "Usuário gerencia seus próprios insumos" ON public.insumos
 CREATE TRIGGER insumos_updated_at BEFORE UPDATE ON public.insumos
   FOR EACH ROW EXECUTE FUNCTION public.update_updated_at_column();
 
+-- Campos de unidade e data de lançamento (migration 20260923000000)
+ALTER TABLE public.insumos
+  ADD COLUMN IF NOT EXISTS unidade text NOT NULL DEFAULT 'unidade',
+  ADD COLUMN IF NOT EXISTS lancado_em date;
+
 -- AGENDAMENTOS
 CREATE TABLE public.agendamentos (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),

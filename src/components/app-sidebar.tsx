@@ -35,6 +35,7 @@ const items = [
   { title: "Haldol injetável", url: "/haldol", icon: Syringe },
   { title: "Indicadores", url: "/indicadores", icon: BarChart3 },
   { title: "Farmacologia", url: "/farmacologia", icon: BookOpen },
+  { title: "Importar backup", url: "/importar-backup", icon: FileText },
 ];
 
 export function AppSidebar() {

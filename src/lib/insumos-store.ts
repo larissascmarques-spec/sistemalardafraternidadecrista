@@ -14,6 +14,10 @@ export type InsumoItem = {
   consumoDiario: number;
   origem: string;
   local: string;
+  /** Unidade em que a quantidade é contada: "unidade" (unidades) ou "ml" (ml/gotas). */
+  unidade?: "unidade" | "ml";
+  /** Data (YYYY-MM-DD) em que o lote foi lançado no estoque. */
+  lancadoEm?: string;
 };
 
 const CHANNEL = "insumos:changed";
@@ -34,6 +38,8 @@ type DbRow = {
   consumo_diario: number;
   origem: string | null;
   local: string | null;
+  unidade: string | null;
+  lancado_em: string | null;
 };
 
 function fromDb(r: DbRow): InsumoItem {
@@ -50,6 +56,8 @@ function fromDb(r: DbRow): InsumoItem {
     consumoDiario: Number(r.consumo_diario) || 0,
     origem: r.origem || "",
     local: r.local || "",
+    unidade: (r.unidade as "unidade" | "ml") || "unidade",
+    lancadoEm: r.lancado_em || undefined,
   };
 }
 
@@ -64,7 +72,7 @@ export async function listarInsumos(): Promise<InsumoItem[]> {
     console.error("[insumos] listar:", error);
     return [];
   }
-  return (data as DbRow[]).map(fromDb);
+  return ((data as unknown) as DbRow[]).map(fromDb);
 }
 
 async function gerarCodigoInsumo(): Promise<string> {
@@ -82,7 +90,7 @@ async function buscarPorNomeLote(nome: string, lote: string) {
     .ilike("nome", nome)
     .ilike("lote", lote || "")
     .maybeSingle();
-  return data as DbRow | null;
+  return (data as unknown) as DbRow | null;
 }
 
 export async function adicionarInsumo(
@@ -101,10 +109,12 @@ export async function adicionarInsumo(
       origem: item.origem || existente.origem,
       categoria: item.categoria || existente.categoria,
       apresentacao: item.apresentacao || existente.apresentacao,
+      unidade: item.unidade || existente.unidade || "unidade",
+      lancado_em: item.lancadoEm || existente.lancado_em,
     };
     const { data, error } = await supabase
       .from("insumos")
-      .update(patch)
+      .update(patch as never)
       .eq("id", existente.id)
       .select()
       .single();
@@ -113,7 +123,7 @@ export async function adicionarInsumo(
       return null;
     }
     notify();
-    return fromDb(data as DbRow);
+    return fromDb((data as unknown) as DbRow);
   }
   const codigo = item.codigo || (await gerarCodigoInsumo());
   const { data, error } = await supabase
@@ -131,7 +141,9 @@ export async function adicionarInsumo(
       consumo_diario: item.consumoDiario || 0,
       origem: item.origem || null,
       local: item.local || null,
-    })
+      unidade: item.unidade || "unidade",
+      lancado_em: item.lancadoEm || new Date().toISOString().slice(0, 10),
+    } as never)
     .select()
     .single();
   if (error) {
@@ -139,7 +151,7 @@ export async function adicionarInsumo(
     return null;
   }
   notify();
-  return fromDb(data as DbRow);
+  return fromDb(data as unknown as DbRow);
 }
 
 export async function adicionarVariosInsumos(
@@ -163,6 +175,37 @@ export async function removerInsumo(id: string) {
     return;
   }
   notify();
+}
+
+export async function atualizarInsumo(
+  id: string,
+  patch: Partial<Omit<InsumoItem, "id" | "codigo">>,
+): Promise<InsumoItem | null> {
+  const dbPatch: Record<string, unknown> = {};
+  if (patch.nome !== undefined) dbPatch.nome = patch.nome;
+  if (patch.categoria !== undefined) dbPatch.categoria = patch.categoria || null;
+  if (patch.apresentacao !== undefined) dbPatch.apresentacao = patch.apresentacao || null;
+  if (patch.lote !== undefined) dbPatch.lote = patch.lote || null;
+  if (patch.validade !== undefined) dbPatch.validade = patch.validade || null;
+  if (patch.quantidade !== undefined) dbPatch.quantidade = patch.quantidade;
+  if (patch.estoqueMinimo !== undefined) dbPatch.estoque_minimo = patch.estoqueMinimo;
+  if (patch.consumoDiario !== undefined) dbPatch.consumo_diario = patch.consumoDiario;
+  if (patch.origem !== undefined) dbPatch.origem = patch.origem || null;
+  if (patch.local !== undefined) dbPatch.local = patch.local || null;
+  if (patch.unidade !== undefined) dbPatch.unidade = patch.unidade || "unidade";
+  if (patch.lancadoEm !== undefined) dbPatch.lancado_em = patch.lancadoEm || null;
+  const { data, error } = await supabase
+    .from("insumos")
+    .update(dbPatch as never)
+    .eq("id", id)
+    .select()
+    .single();
+  if (error) {
+    console.error("[insumos] update:", error);
+    return null;
+  }
+  notify();
+  return fromDb((data as unknown) as DbRow);
 }
 
 export function diasRestantesInsumo(item: InsumoItem): number {

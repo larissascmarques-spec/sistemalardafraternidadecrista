@@ -36,11 +36,12 @@ import {
   adicionarInsumo,
   adicionarVariosInsumos,
   removerInsumo,
+  atualizarInsumo,
   diasRestantesInsumo,
   CATEGORIAS_INSUMOS,
   type InsumoItem,
 } from "@/lib/insumos-store";
-import { PackagePlus, FileSpreadsheet, Download, Trash2 } from "lucide-react";
+import { PackagePlus, FileSpreadsheet, Download, Trash2, Pencil } from "lucide-react";
 
 export const Route = createFileRoute("/insumos")({
   component: Page,
@@ -57,6 +58,8 @@ type Form = {
   consumoDiario: string;
   origem: string;
   local: string;
+  unidade: "unidade" | "ml";
+  lancadoEm: string;
 };
 
 const formVazio: Form = {
@@ -70,6 +73,32 @@ const formVazio: Form = {
   consumoDiario: "",
   origem: "Compra própria",
   local: "Almoxarifado",
+  unidade: "unidade",
+  lancadoEm: "",
+};
+
+type EditForm = {
+  lote: string;
+  validade: string;
+  quantidade: string;
+  estoqueMinimo: string;
+  consumoDiario: string;
+  origem: string;
+  local: string;
+  unidade: "unidade" | "ml";
+  lancadoEm: string;
+};
+
+const editFormVazio: EditForm = {
+  lote: "",
+  validade: "",
+  quantidade: "",
+  estoqueMinimo: "",
+  consumoDiario: "",
+  origem: "",
+  local: "",
+  unidade: "unidade",
+  lancadoEm: "",
 };
 
 function Page() {
@@ -80,6 +109,8 @@ function Page() {
   const [arquivo, setArquivo] = useState<File | null>(null);
   const [importando, setImportando] = useState(false);
   const [filtroCat, setFiltroCat] = useState<string>("Todas");
+  const [editando, setEditando] = useState<InsumoItem | null>(null);
+  const [editForm, setEditForm] = useState<EditForm>(editFormVazio);
 
   const lista = itens
     .filter((i) => filtroCat === "Todas" || i.categoria === filtroCat)
@@ -106,6 +137,8 @@ function Page() {
       consumoDiario: Number(form.consumoDiario) || 0,
       origem: form.origem || "Compra própria",
       local: form.local.trim() || "Almoxarifado",
+      unidade: form.unidade,
+      lancadoEm: form.lancadoEm || new Date().toISOString().slice(0, 10),
     });
     toast.success("Insumo lançado.");
     setForm(formVazio);
@@ -116,6 +149,43 @@ function Page() {
     if (!confirm("Remover este insumo do estoque?")) return;
     await removerInsumo(id);
     toast.success("Removido.");
+  }
+
+  function abrirEdicao(item: InsumoItem) {
+    setEditando(item);
+    setEditForm({
+      lote: item.lote || "",
+      validade: item.validade || "",
+      quantidade: String(item.quantidade ?? ""),
+      estoqueMinimo: String(item.estoqueMinimo ?? ""),
+      consumoDiario: String(item.consumoDiario ?? ""),
+      origem: item.origem || "",
+      local: item.local || "",
+      unidade: item.unidade || "unidade",
+      lancadoEm: item.lancadoEm || "",
+    });
+  }
+
+  async function salvarEdicao() {
+    if (!editando) return;
+    const patch = {
+      lote: editForm.lote.trim(),
+      validade: editForm.validade,
+      quantidade: Number(editForm.quantidade) || 0,
+      estoqueMinimo: Number(editForm.estoqueMinimo) || 0,
+      consumoDiario: Number(editForm.consumoDiario) || 0,
+      origem: editForm.origem.trim(),
+      local: editForm.local.trim(),
+      unidade: editForm.unidade,
+      lancadoEm: editForm.lancadoEm,
+    };
+    const ok = await atualizarInsumo(editando.id, patch);
+    if (ok) {
+      toast.success("Insumo atualizado.");
+      setEditando(null);
+    } else {
+      toast.error("Não foi possível atualizar.");
+    }
   }
 
   async function baixarModelo() {
@@ -133,6 +203,8 @@ function Page() {
         "consumoDiario",
         "origem",
         "local",
+        "unidade",
+        "lancadoEm",
       ],
       [
         "Fralda G",
@@ -145,6 +217,8 @@ function Page() {
         4,
         "Compra própria",
         "Almoxarifado",
+        "unidade",
+        "",
       ],
     ]);
     XLSX.utils.book_append_sheet(wb, ws, "Insumos");
@@ -258,7 +332,7 @@ function Page() {
       <Card>
         <CardContent className="p-0">
           <Table>
-            <TableHeader>
+<TableHeader>
               <TableRow>
                 <TableHead>Insumo</TableHead>
                 <TableHead>Categoria</TableHead>
@@ -266,8 +340,10 @@ function Page() {
                 <TableHead>Lote</TableHead>
                 <TableHead>Validade</TableHead>
                 <TableHead className="text-right">Qtd</TableHead>
+                <TableHead>Unidade</TableHead>
                 <TableHead className="text-right">Mínimo</TableHead>
                 <TableHead className="text-right">Consumo/dia</TableHead>
+                <TableHead>Lançado em</TableHead>
                 <TableHead>Dias restantes</TableHead>
                 <TableHead>Local</TableHead>
                 <TableHead>Status</TableHead>
@@ -277,8 +353,8 @@ function Page() {
             <TableBody>
               {lista.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={12} className="text-center text-sm text-muted-foreground py-8">
-                    Nenhum insumo cadastrado. Use "Lançar entrada" ou "Importar planilha".
+                  <TableCell colSpan={13} className="text-center text-sm text-muted-foreground py-8">
+                    Nenhum insumo registrado. Use "Lançar entrada" ou "Importar planilha".
                   </TableCell>
                 </TableRow>
               )}
@@ -305,8 +381,14 @@ function Page() {
                       )}
                     </TableCell>
                     <TableCell className="text-right">{e.quantidade}</TableCell>
+                    <TableCell>{e.unidade || "—"}</TableCell>
                     <TableCell className="text-right">{e.estoqueMinimo}</TableCell>
                     <TableCell className="text-right">{e.consumoDiario}</TableCell>
+                    <TableCell>
+                      {e.lancadoEm
+                        ? new Date(e.lancadoEm).toLocaleDateString("pt-BR")
+                        : "—"}
+                    </TableCell>
                     <TableCell>{e.consumoDiario > 0 ? `${e.dias} dias` : "—"}</TableCell>
                     <TableCell>{e.local}</TableCell>
                     <TableCell>
@@ -317,9 +399,14 @@ function Page() {
                       )}
                     </TableCell>
                     <TableCell>
-                      <Button variant="ghost" size="icon" onClick={() => excluir(e.id)}>
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
+                      <div className="flex items-center gap-1">
+                        <Button variant="ghost" size="icon" onClick={() => abrirEdicao(e)} title="Editar">
+                          <Pencil className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" onClick={() => excluir(e.id)}>
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 );
@@ -388,6 +475,21 @@ function Page() {
               />
             </div>
             <div>
+              <Label>Unidade</Label>
+              <Select
+                value={form.unidade}
+                onValueChange={(v) => setForm({ ...form, unidade: v as "unidade" | "ml" })}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="unidade">Unidade</SelectItem>
+                  <SelectItem value="ml">ml</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
               <Label>Estoque mínimo</Label>
               <Input
                 type="number"
@@ -410,6 +512,14 @@ function Page() {
             <div className="md:col-span-2">
               <Label>Local de armazenamento</Label>
               <Input value={form.local} onChange={(e) => setForm({ ...form, local: e.target.value })} />
+            </div>
+            <div className="md:col-span-2">
+              <Label>Data de lançamento</Label>
+              <Input
+                type="date"
+                value={form.lancadoEm}
+                onChange={(e) => setForm({ ...form, lancadoEm: e.target.value })}
+              />
             </div>
           </div>
           <DialogFooter>
@@ -448,6 +558,107 @@ function Page() {
             <Button onClick={importarPlanilha} disabled={importando || !arquivo}>
               {importando ? "Importando..." : "Importar"}
             </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!!editando} onOpenChange={(open) => !open && setEditando(null)}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Editar insumo</DialogTitle>
+            <DialogDescription>
+              Atualize lote, validade, quantidade, mínimo, consumo, origem, local, unidade e data de lançamento.
+            </DialogDescription>
+          </DialogHeader>
+          {editando && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div className="md:col-span-2">
+                <Label>Nome</Label>
+                <Input value={editando.nome} disabled />
+              </div>
+              <div>
+                <Label>Lote</Label>
+                <Input
+                  value={editForm.lote}
+                  onChange={(e) => setEditForm({ ...editForm, lote: e.target.value })}
+                />
+              </div>
+              <div>
+                <Label>Validade</Label>
+                <Input
+                  type="date"
+                  value={editForm.validade}
+                  onChange={(e) => setEditForm({ ...editForm, validade: e.target.value })}
+                />
+              </div>
+              <div>
+                <Label>Quantidade</Label>
+                <Input
+                  type="number"
+                  value={editForm.quantidade}
+                  onChange={(e) => setEditForm({ ...editForm, quantidade: e.target.value })}
+                />
+              </div>
+              <div>
+                <Label>Unidade</Label>
+                <Select
+                  value={editForm.unidade}
+                  onValueChange={(v) => setEditForm({ ...editForm, unidade: v as "unidade" | "ml" })}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="unidade">Unidade</SelectItem>
+                    <SelectItem value="ml">ml</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label>Estoque mínimo</Label>
+                <Input
+                  type="number"
+                  value={editForm.estoqueMinimo}
+                  onChange={(e) => setEditForm({ ...editForm, estoqueMinimo: e.target.value })}
+                />
+              </div>
+              <div>
+                <Label>Consumo por dia</Label>
+                <Input
+                  type="number"
+                  value={editForm.consumoDiario}
+                  onChange={(e) => setEditForm({ ...editForm, consumoDiario: e.target.value })}
+                />
+              </div>
+              <div>
+                <Label>Origem</Label>
+                <Input
+                  value={editForm.origem}
+                  onChange={(e) => setEditForm({ ...editForm, origem: e.target.value })}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <Label>Local de armazenamento</Label>
+                <Input
+                  value={editForm.local}
+                  onChange={(e) => setEditForm({ ...editForm, local: e.target.value })}
+                />
+              </div>
+              <div className="md:col-span-2">
+                <Label>Data de lançamento</Label>
+                <Input
+                  type="date"
+                  value={editForm.lancadoEm}
+                  onChange={(e) => setEditForm({ ...editForm, lancadoEm: e.target.value })}
+                />
+              </div>
+            </div>
+          )}
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setEditando(null)}>
+              Cancelar
+            </Button>
+            <Button onClick={salvarEdicao}>Atualizar</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
